@@ -1,4 +1,13 @@
 class Boggler
+  def initialize(word_store=WordStore.new)
+    @word_store = word_store
+  end
+
+  def populate_word_store(words)
+    words.each do |word|
+      @word_store.add word
+    end
+  end
 
   # d a b
   # e f r

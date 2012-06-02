@@ -1,1 +1,1 @@
-require 'lib/boggler'
+require './lib/boggler'

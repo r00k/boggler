@@ -1,5 +1,5 @@
-require 'boggler/word_store'
-require 'boggler/board'
+require_relative 'boggler/word_store'
+require_relative 'boggler/board'
 
 class Boggler
   def initialize(word_store=WordStore.new)
@@ -24,9 +24,9 @@ class Boggler
   #     if its neighbor completes a word, add it to found words
   #     push each neighbor onto the queue
   #
-  #     
+  #
   #
   #     WordStore#add (to seed)
-  #     WordStore#is_prefix? 
-  #     WordStore#is_word? 
+  #     WordStore#is_prefix?
+  #     WordStore#is_word?
 end

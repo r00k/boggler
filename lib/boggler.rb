@@ -1,3 +1,6 @@
+require 'boggler/word_store'
+require 'boggler/board'
+
 class Boggler
   def initialize(word_store=WordStore.new)
     @word_store = word_store

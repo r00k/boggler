@@ -13,5 +13,10 @@ describe '#letter_at' do
 
     b.letter_at(0, 0).should == 'a'
     b.letter_at(0, 1).should == 'b'
+    b.letter_at(0, 2).should == 'c'
+
+    b.letter_at(1, 0).should == 'd'
+    b.letter_at(1, 1).should == 'e'
+    b.letter_at(1, 2).should == 'f'
   end
 end

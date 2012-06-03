@@ -1,3 +1,5 @@
+require_relative 'neighbor_finder'
+
 class Board
   # Initialize with an array of arrays.
   #
@@ -10,13 +12,19 @@ class Board
   #   Board.new([%w(a b c),
   #              %w(d e f),
   #              %w(g h i)])
+  #
+  # Assumes a square (NxN) board.
   def initialize(letters)
     @letters = letters
   end
 
   # 0, 0 is the top left corner.
-  def letter_at(column, row)
-    @letters[column][row]
+  def letter_at(row, column)
+    @letters[row][column]
+  end
+
+  def neighbors_of(row, column)
+    NeighborFinder.new(@letters, row, column).find
   end
 
   def to_s

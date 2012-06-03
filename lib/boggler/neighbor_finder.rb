@@ -12,21 +12,23 @@ class NeighborFinder
     rows + cols + diags
   end
 
+  private
+
   def row_neighbors
     if first_column?
-      [@letters[row][1]]
+      [letter_to_right]
     elsif last_column?
-      [@letters[row][-2]]
+      [letter_to_left]
     else
-      [@letters[row][column - 1], @letters[row][column + 1]]
+      [letter_to_left, letter_to_right]
     end
   end
 
   def column_neighbors
     if top_row?
-      [@letters[row + 1][column]]
-    else middle_row?
-      [@letters[row - 1][column]]
+      [letter_below]
+    elsif middle_row?
+      [letter_above, letter_below]
     end
   end
 
@@ -40,6 +42,14 @@ class NeighborFinder
         neighbors << @letters[row + 1][column + 1]
       end
     end
+  end
+
+  def letter_above
+    @letter[row][column - 1]
+  end
+
+  def letter_below
+    @letters[row + 1][column]
   end
 
   def first_column?
@@ -66,7 +76,13 @@ class NeighborFinder
     column < @letters.size - 1
   end
 
-  private
+  def letter_to_right
+    @letters[row][column + 1]
+  end
+
+  def letter_to_left
+    @letters[row][column - 1]
+  end
 
   attr_accessor :row, :column, :board
 end

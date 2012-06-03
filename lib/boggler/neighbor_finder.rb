@@ -6,10 +6,7 @@ class NeighborFinder
   end
 
   def find
-    rows = row_neighbors
-    cols = column_neighbors
-    diags = diagonal_neighbors
-    rows + cols + diags
+    row_neighbors + column_neighbors + diagonal_neighbors
   end
 
   private
@@ -29,23 +26,65 @@ class NeighborFinder
       [letter_below]
     elsif middle_row?
       [letter_above, letter_below]
+    else
+      [letter_above]
     end
   end
 
   def diagonal_neighbors
     [].tap do |neighbors|
-      if not_first_column?
-        neighbors << @letters[row + 1][column - 1]
+      if has_upper_left_diagonal?
+        neighbors << upper_left_diagonal
       end
 
-      if not_last_column?
-        neighbors << @letters[row + 1][column + 1]
+      if has_upper_right_diagonal?
+        neighbors << upper_right_diagonal
+      end
+
+      if has_bottom_left_diagonal?
+        neighbors << bottom_left_diagonal
+      end
+
+      if has_bottom_right_diagonal?
+        neighbors << bottom_right_diagonal
       end
     end
   end
 
+  def has_bottom_right_diagonal?
+    row + 1 <= max_board_dimension && column + 1 <= max_board_dimension
+  end
+
+  def bottom_right_diagonal
+    @letters[row + 1][column + 1]
+  end
+
+  def has_bottom_left_diagonal?
+    row + 1 <= max_board_dimension && column - 1 >= 0
+  end
+
+  def bottom_left_diagonal
+    @letters[row + 1][column - 1]
+  end
+
+  def has_upper_right_diagonal?
+    row - 1 >= 0 && column + 1 <= max_board_dimension
+  end
+
+  def upper_right_diagonal
+    @letters[row - 1][column + 1]
+  end
+
+  def has_upper_left_diagonal?
+    row - 1 >= 0 && column - 1 >= 0
+  end
+
+  def upper_left_diagonal
+    @letters[row - 1][column - 1]
+  end
+
   def letter_above
-    @letter[row][column - 1]
+    @letters[row - 1][column]
   end
 
   def letter_below
@@ -57,7 +96,7 @@ class NeighborFinder
   end
 
   def last_column?
-    column == @letters.size - 1
+    column == max_board_dimension
   end
 
   def top_row?
@@ -65,7 +104,7 @@ class NeighborFinder
   end
 
   def middle_row?
-    row > 0 && row < @letters.size - 1
+    row > 0 && row < max_board_dimension
   end
 
   def not_first_column?
@@ -73,7 +112,7 @@ class NeighborFinder
   end
 
   def not_last_column?
-    column < @letters.size - 1
+    column < max_board_dimension
   end
 
   def letter_to_right
@@ -82,6 +121,10 @@ class NeighborFinder
 
   def letter_to_left
     @letters[row][column - 1]
+  end
+
+  def max_board_dimension
+    @letters.size - 1
   end
 
   attr_accessor :row, :column, :board

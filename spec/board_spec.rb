@@ -20,25 +20,3 @@ describe '#letter_at' do
     b.letter_at(1, 2).should == 'f'
   end
 end
-
-describe '#neighbors_of' do
-  let(:board) { Board.new([%w(a b c),
-                           %w(d e f),
-                           %w(g h i)]) }
-
-  it 'returns neighbors for a letter in the top left' do
-    board.neighbors_of(0,0).should == ['b', 'd', 'e']
-  end
-
-  it 'returns neighbors for a letter in the top middle' do
-    board.neighbors_of(0,1).should == ['a', 'c', 'e', 'd', 'f']
-  end
-
-  it 'returns neighbors for a letter on the top right' do
-    board.neighbors_of(0,2).should == %w(b f e)
-  end
-
-  # it 'returns neighbors for a second-row first-column letter' do
-  #   board.neighbors_of(1,0).should == %w(e a g b h)
-  # end
-end
